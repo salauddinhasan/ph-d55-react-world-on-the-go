@@ -2,12 +2,13 @@
  import './Country.css';
  
  
- const Country = ({country}) => {
+ const Country = ({country, handleVisitedCountries , handleVisitedFlag }) => {
      
     const [visited, setVisited] = useState(false);
     // console.log(country  )
+   
 
-    const handleClick = () => {
+    const handleVisited = () => {
         //  if(visited) {
         //     setVisited(false);
         //  } else {
@@ -16,15 +17,17 @@
 
         // option 2
         // setVisited(visited ? false : true)
-        
+
         // Option 3
-        setVisited(!visited)
+        setVisited(!visited);
+        handleVisitedCountries(country)
+
 
     }
  
 
     return (
-        <div className='country'> 
+        <div className= {`country ${visited && 'country-visited' }`}> 
             <img src = {country.flags.flags.png} alt={country.flags.flags.alt} />
             <h1>Name: {country.name.common}</h1>
             <h1>Region: {country.region.region}</h1>
@@ -32,7 +35,9 @@
             <h3>Area: {country.area.area}
                 {country.area.area > 300000 ? ' Big country' : ' small country'}
             </h3> 
-             <button onClick={handleClick}> {visited ? '  Visited' : 'Not  Visited'}</button>
+             <button onClick={handleVisited}> {visited ? '  Visited' : 'Not  Visited'}</button>
+
+            <button onClick={() => {handleVisitedFlag(country.flags.flags.png)}}>Add visited flags</button>
 
         </div>
     );
